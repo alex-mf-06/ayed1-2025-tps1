@@ -70,3 +70,30 @@ def validar_fecha(dia: int, mes: int, anio: int) -> bool:
 print(validar_fecha(29, 2, 2020)) # True
 print(validar_fecha(29, 2, 2021)) # False
 print(validar_fecha(31, 4, 2020)) # False
+
+def total_pago_viajes():
+    precio = 963 # Precio del peaje
+    while True:
+        cantidad_viajes = int(input("Ingrese la cantidad de viajes realizados en este mes: ")) # Solicita la cantidad de viajes
+        if cantidad_viajes <= 0: # Verifica si la cantidad es negativa
+            print("La cantidad de viajes no puede ser negativa o cero. Intente nuevamente.")
+        elif cantidad_viajes <= 20:  
+            descuento = 0 
+
+        elif cantidad_viajes <= 30: # Si la cantidad de viajes es mayor a 20 
+            descuento = 0.2
+
+        elif cantidad_viajes <= 40: # Si la cantidad de viajes es mayor a 30
+            descuento = 0.3
+
+        else: # Si la cantidad de viajes es mayor a 40
+            descuento = 0.4
+
+        total = cantidad_viajes * precio * (1 - descuento)
+        if descuento == 0:
+            print(f"El total a pagar por {cantidad_viajes} viajes es: ${total:.2f} (sin descuento)")
+            
+        else:
+            print(f"El total a pagar por {cantidad_viajes} viajes es: ${total:.2f} (con un descuento del {descuento * 100:.0f}%)")
+        break
+total_pago_viajes() # Llama a la funcion para calcular el total a pagar por los viajes
