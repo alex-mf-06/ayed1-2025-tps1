@@ -67,9 +67,9 @@ def validar_fecha(dia: int, mes: int, anio: int) -> bool:
         if dia > 0 and dia <= meses[mes - 1]: # Verifica si el dia es valido
             return True
     return False
-print(validar_fecha(29, 2, 2020)) # True
-print(validar_fecha(29, 2, 2021)) # False
-print(validar_fecha(31, 4, 2020)) # False
+#print(validar_fecha(29, 2, 2020)) # True
+#print(validar_fecha(29, 2, 2021)) # False
+#print(validar_fecha(31, 4, 2020)) # False
 
 def total_pago_viajes():
     precio = 963 # Precio del peaje
@@ -97,3 +97,18 @@ def total_pago_viajes():
             print(f"El total a pagar por {cantidad_viajes} viajes es: ${total:.2f} (con un descuento del {descuento * 100:.0f}%)")
         break
 total_pago_viajes() # Llama a la funcion para calcular el total a pagar por los viajes
+
+
+def calcular_cambio(precio:int, pago: int)-> int :
+    billetes = [5000,1000,500,200,100,50,10] # Lista de billetes disponibles
+    assert pago>= precio, "El pago debe ser mayor al precio"
+    if pago == precio:
+        return 0
+    cambio = pago - precio # Calcula el cambio
+    total_billetes = [] # Inicializa el contador de billetes
+    for billete in billetes: # recorre la lista de billetes
+        while cambio >= billete: # Mientras el cambio sea mayor al billete
+                total_billetes.append(billete) # Agrega el billete a la lista
+                cambio -= billete # Resta el billete del cambio 
+    return total_billetes # Retorna la lista de billetes                     
+print(calcular_cambio(2000,5000)) # Llama a la funcion para calcular el cambio
