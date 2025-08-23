@@ -71,44 +71,144 @@ def validar_fecha(dia: int, mes: int, anio: int) -> bool:
 #print(validar_fecha(29, 2, 2021)) # False
 #print(validar_fecha(31, 4, 2020)) # False
 
-def total_pago_viajes():
-    precio = 963 # Precio del peaje
-    while True:
-        cantidad_viajes = int(input("Ingrese la cantidad de viajes realizados en este mes: ")) # Solicita la cantidad de viajes
-        if cantidad_viajes <= 0: # Verifica si la cantidad es negativa
-            print("La cantidad de viajes no puede ser negativa o cero. Intente nuevamente.")
-        elif cantidad_viajes <= 20:  
-            descuento = 0 
+def total_pago_viajes(cantidad:int) -> int:
+    """
+    Calcula el costo total de una cantidad de viajes aplicando descuentos por tramos.
 
-        elif cantidad_viajes <= 30: # Si la cantidad de viajes es mayor a 20 
-            descuento = 0.2
+    Contrato:
+    - Precondiciones:
+        * cantidad (int) debe ser mayor a 0.
+    - Postcondiciones:
+        * Devuelve el costo total como un entero.
+        * Si cantidad <= 20 → sin descuento.
+        * Si 20 < cantidad <= 30 → 20% descuento en los viajes adicionales.
+        * Si 30 < cantidad <= 40 → 30% descuento en los viajes adicionales.
+        * Si cantidad > 40 → 40% descuento en los viajes adicionales.
+        * Si cantidad <= 0 → devuelve -1.
+    """
+     
+    contador = 1
+    precio = 1000
+    total = 0
+    if cantidad <= 0 :
+        return -1
+    for i in range(cantidad):
+        if contador <= cantidad and contador <= 20 :
+            contador += 1
+            total += precio
+        elif contador <= cantidad and contador <= 30 :
+            contador += 1
+            total +=  precio - precio * 0.2
+        elif contador <= cantidad and contador <= 40 :
+            contador += 1
+            total += precio - precio * 0.3
+        elif contador <= cantidad and contador > 40 :
+            contador += 1
+            total += precio - precio * 0.4
+    return total
+print(total_pago_viajes(22)) # Llama a la funcion para calcular el total a pagar por los viajes
 
-        elif cantidad_viajes <= 40: # Si la cantidad de viajes es mayor a 30
-            descuento = 0.3
 
-        else: # Si la cantidad de viajes es mayor a 40
-            descuento = 0.4
+def calcular_cambio(precio:int, pago: int)-> list :
+    """
+    Calcula el cambio total de una compra en billetes de distintas denominaciones.
+    contrato:
+    - Precondiciones:
+        * precio (int) debe ser mayor a 0.
+        * pago (int) debe ser mayor o igual a precio.
+    - Postcondiciones:
+        * Devuelve una lista con la cantidad de billetes de cada denominación.
+        * Si pago < precio → devuelve [-1].
+    """
+    billetes = [5000, 1000, 500, 200, 100, 50, 10] # Lista de billetes disponibles
+    if pago < precio:
+        return [-1] # Si el pago es menor que el precio, retorna [-1]
+    cambio = pago - precio # Calcula el cambio a devolver
+    total_billetes = [] # Lista para almacenar la cantidad de billetes de cada denominacion
+    for billete in billetes: # Itera sobre cada billete disponible
+        total_billetes.append(cambio // billete) # Calcula la cantidad de billetes de esa denominacion
+        cambio %= billete # Actualiza el cambio restante
+    return total_billetes # Retorna la lista de billetes
 
-        total = cantidad_viajes * precio * (1 - descuento)
-        if descuento == 0:
-            print(f"El total a pagar por {cantidad_viajes} viajes es: ${total:.2f} (sin descuento)")
-            
-        else:
-            print(f"El total a pagar por {cantidad_viajes} viajes es: ${total:.2f} (con un descuento del {descuento * 100:.0f}%)")
-        break
-total_pago_viajes() # Llama a la funcion para calcular el total a pagar por los viajes
+billetes = [5000, 1000, 500, 200, 100, 50, 10]
+precio = 12730
+pago = 20000
+if pago < precio:
+    print("El pago es menor que el precio.")
+else:
+    salida = calcular_cambio(precio, pago) # Llama a la funcion para calcular el cambio
+    print(f"Cambio a devolver: ${pago - precio}")
+    for i,s in enumerate(salida):
+        if s:
+            print(f"{s} billetes de ${billetes[i]}") # Imprime la cantidad de billetes de cada denominacion
+
+def es_oblongo(a:int)->bool:
+    """
+    Verifica si un número es oblongo.
+
+    contrato: 
+    - Precondiciones:
+        * a (int) debe ser mayor o igual a 1.
+    - Postcondiciones:
+        * Devuelve True si a es un número oblongo, False en caso contrario.
+        * Un número es oblongo si puede expresarse como el producto de dos enteros consecutivos.
+        * Si a < 1 → devuelve False.
+    """
+
+    if a < 1:
+        return False
+    num = 1
+    while num * (num + 1) <= a:
+        if num * (num + 1) == a:
+            return True
+        num += 1
+    return False
+assert es_oblongo(6) == True
+assert es_oblongo(8) == False
+assert es_oblongo(12) == True
+def es_triangular(num:int)->bool:
+    """
+    Verifica si un número es triangular.
+    contrato:
+    - Precondiciones:
+        * num (int) debe ser mayor o igual a 1.
+    - Postcondiciones:
+        * Devuelve True si num es un número triangular, False en caso contrario.    
+        * Un número es triangular si puede expresarse como la suma de los primeros n enteros positivos.
+        * Si num < 1 → devuelve False.
+    """
+    if num < 1:
+        return False
+    n = 0
+    triangular = 1
+    while triangular < num:
+        n += 1
+        triangular = n * (n + 1) // 2
+    return triangular == num
+assert es_triangular(36) == True
+assert es_triangular(8) == False
+assert es_triangular(10) == True
+
+#ejeercicio 6 TP1 :
+def concatenar_numeros(n:int)->int:
+    pass
 
 
-def calcular_cambio(precio:int, pago: int)-> int :
-    billetes = [5000,1000,500,200,100,50,10] # Lista de billetes disponibles
-    assert pago>= precio, "El pago debe ser mayor al precio"
-    if pago == precio:
-        return 0
-    cambio = pago - precio # Calcula el cambio
-    total_billetes = [] # Inicializa el contador de billetes
-    for billete in billetes: # recorre la lista de billetes
-        while cambio >= billete: # Mientras el cambio sea mayor al billete
-                total_billetes.append(billete) # Agrega el billete a la lista
-                cambio -= billete # Resta el billete del cambio 
-    return total_billetes # Retorna la lista de billetes                     
-print(calcular_cambio(2000,5000)) # Llama a la funcion para calcular el cambio
+
+def dia_siguiente(dia:int, mes:int, anio:int)->tuple:
+    if dia < 1 or mes < 1 or anio < 1:
+        return (-1, -1, -1)
+    dias_en_mes = [31, 28 + (1 if es_bisiesto(anio) else 0), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    if dia > dias_en_mes[mes - 1]: # Verifica si el dia es valido para el mes y año dado
+        return (-1, -1, -1)
+    dia += 1
+    if dia > dias_en_mes[mes - 1]:
+        dia = 1
+        mes += 1
+        if mes > 12:
+            mes = 1
+            anio += 1
+    return (dia, mes, anio)
+assert dia_siguiente(28, 2, 2020) == (29, 2, 2020) # Año bisiesto
+assert dia_siguiente(28, 2, 2021) == (1, 3, 2021)  # Año no bisiesto
+assert dia_siguiente(31, 12, 2021) == (1, 1, 2022) # Fin de año
