@@ -1,3 +1,6 @@
+import random as rn 
+
+rn.seed(0)
 def registrar_positivos(cantidad):
     
     """Registra una cantidad de numeros positivos ingresados por el usuario.
@@ -190,8 +193,17 @@ assert es_triangular(8) == False
 assert es_triangular(10) == True
 
 #ejeercicio 6 TP1 :
-def concatenar_numeros(n:int)->int:
-    pass
+def concatenar_numeros(a:int, b:int)->int:
+
+    dig = 0
+    aux = b
+    while aux > 0:
+        dig += 1
+        aux //= 10
+    a = a * (10 ** dig) 
+    return a + b
+assert concatenar_numeros(12, 34) == 1234
+
 
 
 
@@ -212,3 +224,95 @@ def dia_siguiente(dia:int, mes:int, anio:int)->tuple:
 assert dia_siguiente(28, 2, 2020) == (29, 2, 2020) # Año bisiesto
 assert dia_siguiente(28, 2, 2021) == (1, 3, 2021)  # Año no bisiesto
 assert dia_siguiente(31, 12, 2021) == (1, 1, 2022) # Fin de año
+def dia_de_la_semana(dia:int, mes:int, anio:int)->int:
+    """
+    Calcula el día de la semana para una fecha dada usando la fórmula de Zeller.
+    contrato:
+    - Precondiciones:
+        * dia (int) debe ser un día válido del mes.
+        * mes (int) debe ser un mes válido (1-12).
+        * anio (int) debe ser un año válido (mayor que 0).
+        - Postcondiciones:
+        * Devuelve un entero que representa el día de la semana (0=Domingo, 1=Lunes, ..., 6=Sábado).
+        * Si la fecha es inválida → devuelve -1."""
+    if mes < 3:
+        mes += 12
+        anio -= 1
+    if mes < 3:
+        mes = mes + 10
+        año = año - 1
+    else:
+        mes = mes - 2
+    siglo = anio // 100
+    anio2 = anio % 100
+    diasem = (((26*mes-2)//10)+dia+anio2+(anio2//4)+(siglo//4)-(2*siglo))%7
+    if diasem < 0:
+        diasem = diasem + 7
+    return diasem
+assert dia_de_la_semana(1, 1, 2022) == 6 # Sábado
+#Ultimo ejercicio TP1 :
+def guion(n=50) -> None:
+    print('-' * n)
+
+def generar_naranjas(cantidad:int) -> None:
+    """Genera una cantidad de naranjas con pesos aleatorios y realiza un análisis de la cosecha.
+       Contrato:
+       - Precondiciones:
+           * cantidad (int) debe ser mayor que 0.
+
+       - Postcondiciones:
+           * No devuelve ningún valor, pero imprime un análisis de la cosecha.
+           * Se generan naranjas con pesos aleatorios entre 150 y 350 gramos.
+
+    """
+    nrj_jugo = []
+    nrj_apto = []
+    for _ in range(cantidad):
+        naranja = rn.randint(150,350)
+        if naranja > 300 or naranja < 200 :
+            nrj_jugo.append(naranja)
+        else:
+            nrj_apto.append(naranja)
+    
+    print(f"La cosecha de naranjas es de: {cantidad} naranjas")
+    guion()
+    print(f"Naranjas para jugo: {len(nrj_jugo)}")
+    guion()
+    print(f"Naranjas aptas para consumo: {len(nrj_apto)}")
+    
+    # Formar cajones completos de 100 naranjas aptas
+    cajones_aptas = len(nrj_apto) // 100
+    sobrante_aptas = len(nrj_apto) % 100
+    print(f"Cajones completos aptas: {cajones_aptas}")
+    guion()
+    print(f"Naranjas sobrantes aptas para próxima entrega: {sobrante_aptas}")
+    
+    # Peso total de las naranjas aptas que llenan cajones
+    peso_total_apto = sum(nrj_apto[:cajones_aptas*100])
+    peso_en_kg = peso_total_apto / 1000
+    promedio_kg_cajon = peso_total_apto / cajones_aptas / 1000 if cajones_aptas > 0 else 0
+    print(f"Peso total de cajones aptas: {peso_total_apto} gramos ({peso_en_kg:.2f} kg)")
+    guion()
+    print(f"Promedio por cajón: {promedio_kg_cajon:.2f} kg")
+    
+    # Distribución en camiones
+    peso_camion = 500
+    peso_minimo = 0.8 * peso_camion  # 80%
+    camiones_necesarios = 0
+    peso_restante = peso_en_kg
+    
+    while peso_restante > 0:
+        if peso_restante >= peso_minimo:
+            camiones_necesarios += 1
+            if peso_restante >= peso_camion:
+                peso_restante -= peso_camion
+            else:
+                peso_restante = 0
+        else:
+            print(f"Los cajones que quedan para la próxima entrega: {peso_restante:.2f} kg")
+            break
+    guion()
+    print(f"Camiones necesarios: {camiones_necesarios}")
+
+# Ejecutar
+generar_naranjas(1_000_000)
