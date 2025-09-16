@@ -304,4 +304,6 @@ def main_ () -> None :
         elif op == "2":
             informe_ind(encabezado,matriz) 
             
-main_()         
+main_()
+#ejercicio 12
+         
