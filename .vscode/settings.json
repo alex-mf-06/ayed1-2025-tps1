@@ -1,0 +1,8 @@
+{
+    "workbench.editor.alwaysShowEditorActions": true,
+    "workbench.editor.autoLockGroups": {
+        "default": true,
+        "jupyter-notebook": true,
+        "workbench.editors.gettingStartedInput": true
+    }
+}

@@ -6,7 +6,7 @@ def cargar_lista_aleatoria():
     Carga una lista de números enteros aleatorios.
 
     """
-    cantidad = random.randint(10, 99)  # Número aleatorio de dos dígitos
+    cantidad = random.randint(1, 9)  # Número aleatorio de dos dígitos
     lista = [random.randint(1000, 9999) for _ in range(cantidad)]
     return lista
 def copiar_lista(lista):
@@ -46,6 +46,7 @@ def es_capicua(lista:list[int]) -> list[int]:
         if lista[i] == lista[n-i-1]:
             copia.append(lista[i])
     return copia
+
 guion = lambda x: "-" * x
 lista = cargar_lista_aleatoria()
 copia = copiar_lista(lista)
