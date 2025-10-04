@@ -10,7 +10,14 @@ def es_oblongo(a:int)->bool:
         * Un número es oblongo si puede expresarse como el producto de dos enteros consecutivos.
         * Si a < 1 → devuelve False.
     """
-
+    try :
+        a = int(a)
+    except ValueError :
+        print("Error: El número debe ser un entero.")
+        return False
+    except TypeError :
+        print("Error: El número debe ser un entero.")
+        return False
     if a < 1:
         return False
     num = 1
@@ -19,7 +26,7 @@ def es_oblongo(a:int)->bool:
             return True
         num += 1
     return False
-assert es_oblongo(6) == True
+assert es_oblongo("6") == True
 assert es_oblongo(8) == False
 assert es_oblongo(12) == True
 def es_triangular(num:int)->bool:
@@ -33,6 +40,14 @@ def es_triangular(num:int)->bool:
         * Un número es triangular si puede expresarse como la suma de los primeros n enteros positivos.
         * Si num < 1 → devuelve False.
     """
+    try :
+        num = int(num)
+    except ValueError :
+        print("Error: El número debe ser un entero. lee el contrato")
+        return False
+    except TypeError :
+        print("Error: El número debe ser un entero.lee el contrato ")
+        return False
     if num < 1:
         return False
     n = 0

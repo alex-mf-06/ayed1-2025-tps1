@@ -12,6 +12,18 @@ def generar_naranjas(cantidad:int) -> None:
            * Se generan naranjas con pesos aleatorios entre 150 y 350 gramos.
 
     """
+    try :
+        cantidad = int(cantidad)
+    except ValueError :
+        print("Error: La cantidad debe ser un número entero.")
+        return
+    except TypeError :
+        print("Error: La cantidad debe ser un número entero.")
+        return
+    if cantidad <= 0:
+        print("Error: La cantidad debe ser mayor que 0.")
+        return
+    
     nrj_jugo = []
     nrj_apto = []
     for _ in range(cantidad):
@@ -62,4 +74,6 @@ def generar_naranjas(cantidad:int) -> None:
     print(f"Camiones necesarios: {camiones_necesarios}")
 
 # Ejecutar
-generar_naranjas(1_000_000)
+generar_naranjas("1_000_000")
+generar_naranjas("n")
+generar_naranjas(1000)

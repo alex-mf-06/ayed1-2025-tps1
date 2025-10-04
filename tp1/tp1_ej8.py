@@ -9,6 +9,16 @@ def dia_de_la_semana(dia:int, mes:int, anio:int)->int:
         - Postcondiciones:
         * Devuelve un entero que representa el día de la semana (0=Domingo, 1=Lunes, ..., 6=Sábado).
         * Si la fecha es inválida → devuelve -1."""
+    try :
+        dia = int(dia)
+        mes = int(mes)
+        anio = int(anio)
+    except ValueError :
+        print("Error: La fecha debe contener números enteros.")
+        return -1
+    except TypeError :
+        print("Error: La fecha debe contener números enteros.")
+        return -1
     if mes < 3:
         mes += 12
         anio -= 1
@@ -24,3 +34,5 @@ def dia_de_la_semana(dia:int, mes:int, anio:int)->int:
         diasem = diasem + 7
     return diasem
 assert dia_de_la_semana(1, 1, 2022) == 6 # Sábado
+assert dia_de_la_semana(15, 8, 1947) == 5 # Viernes
+print(dia_de_la_semana("n", 12, "2021")) # Error de tipo value

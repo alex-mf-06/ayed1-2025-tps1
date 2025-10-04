@@ -13,7 +13,11 @@ def total_pago_viajes(cantidad:int) -> int:
         * Si cantidad > 40 → 40% descuento en los viajes adicionales.
         * Si cantidad <= 0 → devuelve -1.
     """
-     
+    try :
+        cantidad = int(cantidad)
+    except ValueError :
+        print("Error: La cantidad debe ser un número entero.")
+        return -1
     contador = 1
     precio = 1000
     total = 0
@@ -33,5 +37,5 @@ def total_pago_viajes(cantidad:int) -> int:
             contador += 1
             total += precio - precio * 0.4
     return total
-print(total_pago_viajes(22)) # Llama a la funcion para calcular el total a pagar por los viajes
+print(total_pago_viajes("n")) # Llama a la funcion para calcular el total a pagar por los viajes
 print(total_pago_viajes(35)) # Llama a la funcion para calcular el total a pagar por los viajes

@@ -8,7 +8,19 @@ def registrar_positivos(cantidad):
         cantidad (int): La cantidad de numeros positivos a registrar.
     Returns:
         list: Una lista con los numeros positivos ingresados.
+        - Precondiciones:
+            * cantidad (int) debe ser mayor que 0.
+        - Postcondiciones:
+            * Devuelve una lista con los numeros positivos ingresados.
     """
+    try :
+        cantidad = int(cantidad)
+    except ValueError :
+        print("Error: La cantidad debe ser un número entero.")
+        return []
+    except TypeError :
+        print("Error: La cantidad debe ser un número entero.")
+        return []
     lista = []
     for _ in range(cantidad): # Itera la cantidad de veces especificada
         while True: # Bucle infinito hasta que se ingrese un numero positivo
@@ -35,7 +47,9 @@ def buscar_mayor(lista) -> int:
     mayor = max(lista)
     return mayor if lista.count(mayor) == 1 else -1
 # tp1.py
-m = registrar_positivos(10)
-print(m)
-print(buscar_mayor(m))
+registrar_positivos("n")
+m = [3, 5, 7, 2, 8, 8]
+n = registrar_positivos(5)
+print(buscar_mayor(m)) # Debe retornar -1 porque el mayor (8) está duplicado
+print(buscar_mayor(n)) # Depende de los números ingresados por el usuario
 
