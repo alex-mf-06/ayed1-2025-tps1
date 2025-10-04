@@ -10,35 +10,32 @@ def registrar_positivos(cantidad):
         list: Una lista con los numeros positivos ingresados.
     """
     lista = []
-    for i in range(cantidad): # Repite el proceso para la cantidad especificada
-        num = -1 # Inicializa num con un valor negativo para entrar al bucle
-        while num < 0 : # Mientras el numero sea negativo, solicita un nuevo numero
-            num = int(input("Ingrese un numero positivo: "))
-            if num < 0: # Si el numero es negativo, muestra un mensaje de error
-                print("El numero debe ser positivo")
-        lista.append(num) # Agrega el numero positivo a la lista
+    for _ in range(cantidad): # Itera la cantidad de veces especificada
+        while True: # Bucle infinito hasta que se ingrese un numero positivo
+            try:
+                num = int(input("Ingrese un numero positivo: ")) # Solicita al usuario un numero
+                if num < 0: # Verifica si el numero es negativo
+                    print("El numero debe ser positivo") # Muestra un mensaje de error si es negativo
+                    continue # Vuelve al inicio del bucle para solicitar otro numero
+                lista.append(num) # Agrega el numero positivo a la lista
+                break # Sale del bucle si se ingresa un numero positivo
+            except ValueError:
+                print("Error, debe ingresar un numero entero") # Maneja el error si la entrada no es un entero
+                continue # Vuelve al inicio del bucle para solicitar otro numero
     return lista # retorna la lista de numeros positivos
 
-def buscar_mayor(a:int,b:int, c:int) -> int:
+def buscar_mayor(lista) -> int:
     """Busca el mayor numero en una lista de numeros(int).
     Args:
-        lista (list): La lista de numeros a evaluar.
+        lista (list): La lista de numeros a evaluar debe ser una lista con enteros.
     Returns:
         int: El mayor numero encontrado o -1 si los mayores son duplicados.
     """
-    lista = [a, b, c] # Crea una lista con los numeros proporcionados
-    mayor = 0 # Inicializa el mayor con 0
-    repetido = False # Inicializa repetido como False
-    for num in lista: 
-        if num == mayor: # Si el numero es igual al mayor, se marca como repetido
-            repetido = True
-        elif num > mayor:
-            mayor = num # Si el numero es mayor que el actual mayor, se actualiza
-            repetido = False # Reinicia repetido a False si se encuentra un nuevo mayor
-    if repetido == False:
-        return mayor # Retorna el mayor si no hay duplicados
-    else:
-        return -1 # Si hay duplicados, retorna -1
+    #lista = [a, b, c] # Crea una lista con los numeros proporcionados
+    mayor = max(lista)
+    return mayor if lista.count(mayor) == 1 else -1
 # tp1.py
-m = registrar_positivos(3)
-print(f"{buscar_mayor(m[0], m[1], m[2])}")
+m = registrar_positivos(10)
+print(m)
+print(buscar_mayor(m))
+
