@@ -14,14 +14,15 @@ def pedir_entero( ) -> int:
             return n
         except ValueError:
             print("Error, debe ingresar un numero entero lee el contrato")
+            continue
+    
 
 
 def crear_matriz(Lista:List) -> List[List[int]]:
     """Crea una matriz con la cantidad de listas que el usuario desee y devuelve una matriz vacia.
     precondiciones: La cantidad de listas debe ser un numero entero mayor a 0.
     postcondiciones: Devuelve una matriz vacia con la cantidad de listas que el usuario haya ingresado.
-    """
-
+    """    
     n = pedir_entero()
     matriz = [[]for i in range(n)]
     repetidos = set()
@@ -36,7 +37,7 @@ def crear_matriz(Lista:List) -> List[List[int]]:
                 repetidos.add(numero)
                 j += 1
     return matriz 
-
-matriz = []
-matriz = crear_matriz(matriz)
-print(matriz)
+if __name__ == "__main__":
+    matriz = []
+    matriz = crear_matriz(matriz)
+    print(matriz)
