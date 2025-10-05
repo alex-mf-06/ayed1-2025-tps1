@@ -1,7 +1,18 @@
-def cargar_clientes() -> list[int] :
+from typing import List
+def cargar_clientes() -> List[int] :
+    """
+    Carga una lista con los números de socios que ingresan al club. 
+    precondición: El número de socio debe estar entre 10,000 y 99,999 o 0 para finalizar.
+    postcondición: Devuelve una lista con los números de socios."""
     lista_clientes = []
     while True :
-        cliente = int(input("Ingrese su numero de socio : "))
+        try:
+
+            cliente = int(input("Ingrese su numero de socio : "))
+        except ValueError:
+            print("Error: Ingrese un número entero válido.")
+            continue
+
         if cliente == 0 :
             print("Saliendo....")
             break
@@ -10,12 +21,25 @@ def cargar_clientes() -> list[int] :
         else:
             print("Numero de socio invalido...")
     return lista_clientes
-def inf_de_usuarios(lista_socios:list[int]) -> None :
+
+
+def inf_de_usuarios(lista_socios:List[int]) -> None :
+    """
+    genera un informe de los socios que ingresaron al club y cuántas veces ingresaron.
+    precondición: La lista no debe estar vacía y debe ser una lista de enteros.
+    postcondición: Imprime un informe con el número de socio y la cantidad de ingresos
+    """
     list_sin_rep = list(dict.fromkeys(lista_socios))
     cantidad_de_ingreso = [lista_socios.count(no_rep) for no_rep in list_sin_rep] 
     for socio,ingreso in zip(list_sin_rep,cantidad_de_ingreso):
         print(f" Socio : {socio} Entro : {ingreso} al club. ")
-def sacar_cliente(lista_socios:list[int]) -> None :
+
+
+def sacar_cliente(lista_socios:List[int]) -> None :
+    """
+    Elimina todos los registros de un socio que se dio de baja.
+    precondición: La lista no debe estar vacía y debe ser una lista de enteros.
+    postcondición: Imprime la cantidad de registros eliminados y la lista actualizada de socios."""
     list_sin_rep = list(dict.fromkeys(lista_socios))
     while True:
         print("Afiliados registrados:", ", ".join(str(user) for user in list_sin_rep))
@@ -39,6 +63,10 @@ def sacar_cliente(lista_socios:list[int]) -> None :
             
                 
 def menu() -> None :
+    """
+    Muestra un menú para que el usuario elija entre generar un informe de ingresos o eliminar un registro de socio.
+    
+    """
     opciones = ["Salir","informe de los ingresos de los socios en el dia ","eliminacion del registro de un socio que se dio de baja  "] 
     socios = cargar_clientes()
     while True :
@@ -54,7 +82,7 @@ def menu() -> None :
             sacar_cliente(socios)
         else :
             print(f"Ingreso de numero de socio invalido...")
-            
-menu()    
+if __name__ == "__main__":             
+    menu()    
         
             
