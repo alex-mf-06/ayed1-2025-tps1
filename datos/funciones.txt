@@ -1,0 +1,12 @@
+def mi_funcion(a, b):
+resultado = a + b
+
+print("El color de fondo es #FFFFFF")
+
+return resultado
+
+
+mi_query_sql = """ SELECT * FROM usuarios WHERE id = 1; """
+def __init__(self, nombre):
+self.nombre = nombre
+print(f"Persona '{self.nombre}' creada.")
