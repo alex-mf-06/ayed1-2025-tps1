@@ -4,7 +4,15 @@ from typing import Tuple
 def crear_ficha() -> Tuple[int, int]:
     """
     
-    
+    Solicita al usuario dos valores y devuelve una ficha de dominó válida.
+
+    PRECONDICIONES:
+    - El usuario debe ingresar dos números enteros entre 0 y 6.
+      No se aceptan negativos, letras ni números fuera del rango.
+
+    POSTCONDICIONES:
+    - Devuelve una tupla (a, b) donde ambos valores están en el rango 0–6.
+    - No finaliza hasta que se complete correctamente la ficha
     """
     try:
         ficha = []
